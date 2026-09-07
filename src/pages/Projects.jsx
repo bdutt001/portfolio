@@ -32,6 +32,29 @@ export default function Projects() {
         },
         {
             id: 2,
+            title: "Benjamin Dutton Photography",
+            type: "Website",
+            organization: null,
+            descriptor: "Photography Portfolio",
+            team: "solo",
+            teamSize: 1,
+            status: "ongoing",
+            madeWith: [
+                "React",
+                "TypeScript",
+                "GitHub",
+                "Inkscape (Logo Design)"
+            ],
+            description: [
+                "My photography portfolio featuring a masonry layout gallery and slideshow components.",
+            ],
+            links: [
+                {text: "View Site", url: "https://bdutt001.github.io/photography/"},
+                {text: "GitHub Repo", url: "https://github.com/bdutt001/photography"},
+            ]
+        },
+        {
+            id: 3,
             title: "MingleMap",
             type: "Mobile Application",
             organization: "Old Dominion University",
@@ -61,7 +84,7 @@ export default function Projects() {
             ]
         },
         {
-            id: 3,
+            id: 4,
             title: "Employee Monitoring Software",
             type: "Web Application",
             organization: "Old Dominion University",
@@ -89,7 +112,7 @@ export default function Projects() {
             ]
         },
         {
-            id: 4,
+            id: 5,
             title: "Course Advising Portal",
             type: "Web Application",
             organization: "Old Dominion University",
@@ -144,20 +167,6 @@ export default function Projects() {
             <div className="projects">
                 <div className="row">
                     <h1>Projects</h1>
-                    {/* <select onChange={(e) => setFilters({ ...filters, organization: e.target.value })}>
-                        <option value="all">All Organizations</option>
-                        <option value="Grand Forge Games">Grand Forge Games</option>
-                        <option value="Old Dominion University">Old Dominion University</option>
-                    </select>
-
-                    <select onChange={(e) => setFilters({ ...filters, team: e.target.value })}>
-                        <option value="all">All Work Types</option>
-                        <option value="solo">Solo</option>
-                        <option value="team">Team</option>
-                    </select> */}
-                    <div className="filters">
-                        
-                    </div>
                 </div>
 
                 <div className="projects__list">
@@ -177,7 +186,7 @@ export default function Projects() {
                                 <div className="col">
                                     <h2 className="project__title">{project.title}</h2>
                                     <div className={`${openProject === project.id ? "row--nowrap" : "col"}`}>
-                                        <h3>{project.organization}</h3>
+                                        {project.organization && (<h3>{project.organization}</h3>)}
                                         <p>{project.descriptor}</p>
                                     </div>
                                 </div>
