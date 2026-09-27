@@ -110,3 +110,15 @@
   align-self: center;
   line-height: 1.25;
 }
+
+@media (max-width: 768px) {
+  .terminal {
+    font-size: .5rem;
+  }
+
+  .ascii,
+  .ascii-2 {
+    display: none;
+  }
+  
+}

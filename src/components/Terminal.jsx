@@ -338,7 +338,7 @@ function Terminal() {
                                     <p>print contact information</p>
                                     <p>list directory contents</p>
                                     <p>print working directory</p>
-                                    <p>print development environment and tools</p>
+                                    <p>print technology stack</p>
                                     <p>print available commands</p>
                                 </div>
                             
