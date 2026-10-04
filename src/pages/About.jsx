@@ -30,15 +30,15 @@ export default function About()  {
                                 setOpenSchool(openSchool === "odu" ? null : "odu")
                             }
                         >
-                            <div className="row-apart">
+                            <div className="row-apart --column-mobile">
                                 <h2>B.S. in Computer Science</h2>
                                 <p className="date">May 2026</p>
                             </div>
-                            <div className="row-apart">
+                            <div className="row-apart --column-mobile">
                                 <h3>Old Dominion University</h3>
                                 <p>Norfolk, Virginia</p>
                             </div>
-                            <div className='row-apart'>
+                            <div className='row-apart --column-mobile'>
                                 <p>Studied coding fundamentals</p>
                                 <a
                                     href="/portfolio/odu-diploma.pdf"
@@ -70,11 +70,11 @@ export default function About()  {
                                 setOpenSchool(openSchool === "wbhs" ? null : "wbhs")
                             }
                         >
-                            <div className="row-apart">
+                            <div className="row-apart --column-mobile">
                                 <h2>Advanced Diploma</h2>
                                 <p className="date">May 2019</p>
                             </div>
-                            <div className="row-apart">
+                            <div className="row-apart --column-mobile">
                                 <h3>Western Branch High School</h3>
                                 <p>Chesapeake, Virginia</p>
                             </div>
@@ -103,11 +103,11 @@ export default function About()  {
                                 setOpenJob(openJob === "wr" ? null : "wr")
                             }
                         >
-                            <div className="row-apart">
+                            <div className="row-apart --column-mobile">
                                 <h2>Software Engineer</h2>
                                 <p className="date">July 2026 - Current</p>
                             </div>
-                            <div className='row-apart'>
+                            <div className="row-apart --column-mobile">
                                 <h3>WR Systems</h3>
                                 <p>Norfolk, Virginia</p>
                             </div>
@@ -147,15 +147,15 @@ export default function About()  {
                                 setOpenJob(openJob === "gfg" ? null : "gfg")
                             }
                         >
-                            <div className="row-apart">
+                            <div className="row-apart --column-mobile">
                                 <h2>Web Developer</h2>
                                 <p className="date">January 2026 - Current</p>
                             </div>
-                            <div className='row-apart'>
+                            <div className='row-apart --column-mobile'>
                                 <h3>Grand Forge Games</h3>
                                 <p>Remote</p>
                             </div>
-                            <div className='row-apart'>
+                            <div className='row-apart --column-mobile'>
                                 <p>Sole developer of the company website</p>
                                 <a
                                     href="https://grandforgegames.com"

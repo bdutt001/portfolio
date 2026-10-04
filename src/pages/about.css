@@ -5,6 +5,7 @@
   height: 100%;
 
   padding: 2rem;
+  padding-bottom: 5rem;
   text-align: left;
 }
 
@@ -179,22 +180,31 @@
 
 @media (max-width: 1100px) {
     .about {
-        display: flex;
-        overflow: scroll;
+      display: flex;
+      overflow: scroll;
     }
     
     .about-grid {
-        grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
 
     .about-col {
-        min-height: fit-content;
-        overflow: visible;
+      min-height: fit-content;
+      overflow: visible;
+    }
+
+    .--column-mobile {
+      flex-direction: column;
+      gap: .5rem;
     }
 
     .contact-grid {
         grid-template-columns: 1fr;
     }
 
+    h2,
+    h3 {
+      text-wrap: wrap;
+    }
 
 }
