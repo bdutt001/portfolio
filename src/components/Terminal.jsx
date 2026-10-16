@@ -3,57 +3,16 @@ import './terminal.css';
 import { useEffect, useRef, useState } from "react"
 import TypingText from "./TypingText"
 
-const filesystem = {
-    type: "directory",
-    children: {
-        about: {
-            type: "directory",
-            children: {
-                "education.txt": {
-                    type: "file",
-                    content: "Your education information here."
-                },
-                "experience.txt": {
-                    type: "file",
-                    content: "Your experience information here."
-                },
-                skills: {
-                    type: "directory",
-                    children: {
-                        "frontend.txt": {
-                            type: "file",
-                            content: "React, CSS, JavaScript"
-                        },
-                        "backend.txt": {
-                            type: "file",
-                            content: "Node.js, Express, PostgreSQL"
-                        }
-                    }
-                }
-            }
-        },
-    
-        projects: {
-            type: "directory",
-            children: {
-                "grandforgegames.txt": {
-                    type: "file",
-                    content: "Grand Forge Games project information."
-                },
-                "minglemap.txt": {
-                    type: "file",
-                    content: "MingleMap project information."
-                }
-            }
-        }
-    }
-}
+import { filesystem } from '../data/fileSystem';
+
+import { useKeystrokes } from '../hooks/useKeystrokes';
 
 function Terminal() {
     const [input, setInput] = useState("")
     const terminalRef = useRef(null)
     const [currentPath, setCurrentPath] = useState([])
-
+    const [historyIndex, setHistoryIndex] = useState(-1)
+    const [bootComplete, setBootComplete] = useState(false)
     const [lines, setCommandHistory] = useState([
         {
             id: "boot-command",
@@ -64,6 +23,13 @@ function Terminal() {
         }
     ])
 
+    const getPromptPath = (path) => {
+        if (!path || path.length === 0) {
+            return "~"
+        }
+
+        return path[path.length - 1]
+    }
     const getCurrentDirectory = () => {
         let directory = filesystem
 
@@ -74,61 +40,13 @@ function Terminal() {
         return directory
     }
 
-    const [historyIndex, setHistoryIndex] = useState(-1)
-
-    function handleKeystrokes(e) {
-        if (e.key === "Enter") {
-            e.preventDefault()
-            handleCommand(input)
-        }
-
-        if (e.key === "ArrowUp") {
-            e.preventDefault()
-
-            const commands = lines.filter(line => line.type === "command")
-
-            if (commands.length === 0) return
-
-            const newIndex = historyIndex === -1
-                ? commands.length - 1
-                : Math.max(0, historyIndex - 1)
-
-            setHistoryIndex(newIndex)
-            setInput(commands[newIndex].text)
-        }
-
-        if (e.key === "ArrowDown") {
-            e.preventDefault()
-
-            if (historyIndex === -1) return
-
-            const commands = lines.filter(line => line.type === "command")
-            const newIndex = historyIndex + 1
-
-            if (newIndex >= commands.length) {
-                setHistoryIndex(-1)
-                setInput("")
-            } else {
-                setHistoryIndex(newIndex)
-                setInput(commands[newIndex].text)
-            }
-        }
-
-        if (e.key === "l" && e.ctrlKey == true) {
-            e.preventDefault()
-            setCommandHistory([])
-        }
-    }
-
-    const [bootComplete, setBootComplete] = useState(false)
+   
 
     useEffect(() => {
         if (terminalRef.current) {
             terminalRef.current.scrollTop = terminalRef.current.scrollHeight
         }
     }, [lines])
-
-
     useEffect(() => {  
         const welcomeTimer = setTimeout(() => {
             setCommandHistory(prev => [
@@ -147,15 +65,6 @@ function Terminal() {
         }
 
     }, [])
-
-    const getPromptPath = (path) => {
-        if (!path || path.length === 0) {
-            return "~"
-        }
-
-        return path[path.length - 1]
-    }
-
 
     const handleCommand = (command) => {
        const trimmed = command.trim()
@@ -287,6 +196,16 @@ function Terminal() {
 
         setInput("")
     }
+
+     const handleKeystrokes = useKeystrokes({
+        lines,
+        input,
+        setInput,
+        historyIndex,
+        setHistoryIndex,
+        setCommandHistory,
+        handleCommand
+    });
 
     return (
         <div className="terminal" ref={terminalRef}>
