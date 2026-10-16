@@ -113,6 +113,11 @@ function Terminal() {
                 setInput(commands[newIndex].text)
             }
         }
+
+        if (e.key === "l" && e.ctrlKey == true) {
+            e.preventDefault()
+            setCommandHistory([])
+        }
     }
 
     const [bootComplete, setBootComplete] = useState(false)
@@ -171,13 +176,27 @@ function Terminal() {
         ]
 
         switch (commandName.toLowerCase()) {
+            case "hello":
+                commandHistory.push({
+                    id: crypto.randomUUID(),
+                    type: "welcome"
+                })
+            break
+
             case "help":
             case "man":
                 commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "help",
                 })
-                break
+            break
+            
+            case "contact":
+                commandHistory.push({
+                    id: crypto.randomUUID(),
+                    type: "contact"
+                })
+            break
 
             case "about":
             case "whoami":
@@ -185,7 +204,38 @@ function Terminal() {
                     id: crypto.randomUUID(),
                     type: "about",
                 })
+            break
+
+            case "clear":
+                setCommandHistory([])
+                setInput("")
+            return
+
+            case "pwd":
+                commandHistory.push({
+                    id: crypto.randomUUID(),
+                    type: "text",
+                    text: "/home/ben",
+                })
+            break
+
+            case "ls": {
+                const directory = getCurrentDirectory()
+
+                const contents = Object.entries(directory.children)
+                    .map(([name, item]) => (
+                        item.type === "directory" ? `${name}/` : name
+                    ))
+                    .join("  ")
+
+                commandHistory.push({
+                    id: crypto.randomUUID(),
+                    type: "text",
+                    text: contents,
+                })
+
                 break
+            }
 
             case "cd": {
                 const target = argument
@@ -224,62 +274,6 @@ function Terminal() {
                 setCurrentPath(prev => [...prev, target])
                 break
             }
-
-
-            case "contact":
-                commandHistory.push({
-                    id: crypto.randomUUID(),
-                    type: "contact"
-                })
-                break
-
-            case "hello":
-                commandHistory.push({
-                    id: crypto.randomUUID(),
-                    type: "welcome"
-                })
-                break
-                
-            case "ls": {
-                const directory = getCurrentDirectory()
-
-                const contents = Object.entries(directory.children)
-                    .map(([name, item]) => (
-                        item.type === "directory" ? `${name}/` : name
-                    ))
-                    .join("  ")
-
-                commandHistory.push({
-                    id: crypto.randomUUID(),
-                    type: "text",
-                    text: contents,
-                })
-
-                break
-            }
-
-            case "pwd":
-                commandHistory.push({
-                    id: crypto.randomUUID(),
-                    type: "text",
-                    text: "/home/ben",
-                })
-                break
-
-            case "fastfetch":
-            case "neofetch":
-            case "stack":
-                commandHistory.push({
-                    id: crypto.randomUUID(),
-                    type: "fastfetch",
-                })
-                break
-            
-
-            case "clear":
-                setCommandHistory([])
-                setInput("")
-                return
 
             default:
                 commandHistory.push({
@@ -366,29 +360,36 @@ function Terminal() {
                     return (
                         <div key={line.id} className='output'>
                             
-                            <p>Available commands: </p>
+                            <p>Bash commands: </p>
                             <div className="help">
                                 <div>
-                                    <p className='accent'>about</p>
                                     <p className='accent'>cd</p>
                                     <p className="accent">clear</p>
-                                    <p className="accent">contact</p>
                                     <p className='accent'>ls</p>
                                     <p className='accent'>pwd</p>
-                                    <p className="accent">stack</p>
                                     <p className="accent">help</p>
                                 </div>
                                 <div>
-                                    <p>print summary</p>
                                     <p>change working directory</p>
                                     <p>clear terminal history</p>
-                                    <p>print contact information</p>
                                     <p>list directory contents</p>
                                     <p>print working directory</p>
-                                    <p>print technology stack</p>
                                     <p>print available commands</p>
                                 </div>
-                            
+                            </div>
+                            <br/>
+                            <p>Other commands:</p>
+                            <div className="help">
+                                <div>
+                                    <p className='accent'>about</p>
+                                    <p className="accent">contact</p>
+                                    <p className="accent">stack</p>
+                                </div>
+                                <div>
+                                    <p>print summary</p>
+                                    <p>print contact information</p>
+                                    <p>print technology stack</p>
+                                </div>
                             </div>
                         </div>
                     )
