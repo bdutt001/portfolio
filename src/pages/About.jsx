@@ -111,7 +111,7 @@ export default function About()  {
                                 <h3>WR Systems</h3>
                                 <p>Norfolk, Virginia</p>
                             </div>
-                            <p>Contributing to mission-critical software</p>
+                            <p>Building software for mission-critical embedded systems</p>
                             <div    
                                 className={`expandable-wrapper__job ${
                                     openJob === "wr" ? "open" : ""

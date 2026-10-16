@@ -337,10 +337,7 @@ p {
     padding: 1.25rem;
   }
 
-  .about {
-    display: flex;
-    overflow: scroll;
-  }
+  
 
   .home.left {
     flex-direction: column;
