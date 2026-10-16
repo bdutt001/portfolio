@@ -5,8 +5,7 @@ https://bdutt001.github.io/portfolio
 This developer portfolio is a static site made with React. 
 
 ## Features
-- Interactive command-line interface
-- Expanding card components
+- Interactive terminal that accepts some Bash commands and custom commands (WIP)
 - Responsive user interface
 - Search engine optimizations (SEO)
 
@@ -14,5 +13,6 @@ This developer portfolio is a static site made with React.
 - React.js
 - HTML
 - CSS
+- JS
 - Vite
 - GitHub Pages
