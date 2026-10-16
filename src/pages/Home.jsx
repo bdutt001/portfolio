@@ -28,14 +28,24 @@ export default function Home()  {
                             <div className="profile__name">
                                 <h2>Benjamin Dutton</h2>
                                 <div className="job-row">
-                                    <Link to="/about#job--wr" className='job__role'>Software Engineer</Link>
+                                    <Link 
+                                        to="/about#job--wr" 
+                                        // className='job__role'
+                                    >
+                                        Software Engineer
+                                    </Link>
                                     <p>at</p>
                                     <a href="https://wrsystems.com/">
                                         WR Systems
                                     </a>
                                 </div>
                                 <div className="job-row">
-                                    <Link to="/about#job--gfg" className='job__role'>Web Developer</Link>
+                                    <Link 
+                                        to="/about#job--gfg" 
+                                        // className='job__role'
+                                    > 
+                                            Web Developer
+                                    </Link>
                                     <p>at</p>
                                     <a href="https://grandforgegames.com/">
                                         Grand Forge Games

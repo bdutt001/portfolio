@@ -54,7 +54,7 @@ function Terminal() {
     const terminalRef = useRef(null)
     const [currentPath, setCurrentPath] = useState([])
 
-    const [lines, setLines] = useState([
+    const [lines, setCommandHistory] = useState([
         {
             id: "boot-command",
             type: "command",
@@ -63,7 +63,6 @@ function Terminal() {
             animate: true,
         }
     ])
-
 
     const getCurrentDirectory = () => {
         let directory = filesystem
@@ -75,6 +74,47 @@ function Terminal() {
         return directory
     }
 
+    const [historyIndex, setHistoryIndex] = useState(-1)
+
+    function handleKeystrokes(e) {
+        if (e.key === "Enter") {
+            e.preventDefault()
+            handleCommand(input)
+        }
+
+        if (e.key === "ArrowUp") {
+            e.preventDefault()
+
+            const commands = lines.filter(line => line.type === "command")
+
+            if (commands.length === 0) return
+
+            const newIndex = historyIndex === -1
+                ? commands.length - 1
+                : Math.max(0, historyIndex - 1)
+
+            setHistoryIndex(newIndex)
+            setInput(commands[newIndex].text)
+        }
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault()
+
+            if (historyIndex === -1) return
+
+            const commands = lines.filter(line => line.type === "command")
+            const newIndex = historyIndex + 1
+
+            if (newIndex >= commands.length) {
+                setHistoryIndex(-1)
+                setInput("")
+            } else {
+                setHistoryIndex(newIndex)
+                setInput(commands[newIndex].text)
+            }
+        }
+    }
+
     const [bootComplete, setBootComplete] = useState(false)
 
     useEffect(() => {
@@ -84,10 +124,9 @@ function Terminal() {
     }, [lines])
 
 
-    useEffect(() => {
-        
+    useEffect(() => {  
         const welcomeTimer = setTimeout(() => {
-            setLines(prev => [
+            setCommandHistory(prev => [
                 ...prev,
                 {
                     id: "welcome-message",
@@ -121,7 +160,7 @@ function Terminal() {
         const [commandName, ...args] = trimmed.split(/\s+/)
         const argument = args.join(" ")
 
-        const newLines = [
+        const commandHistory = [
             {
                 id: crypto.randomUUID(),
                 type: "command",
@@ -134,7 +173,7 @@ function Terminal() {
         switch (commandName.toLowerCase()) {
             case "help":
             case "man":
-                newLines.push({
+                commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "help",
                 })
@@ -142,7 +181,7 @@ function Terminal() {
 
             case "about":
             case "whoami":
-                newLines.push({
+                commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "about",
                 })
@@ -165,7 +204,7 @@ function Terminal() {
                 const targetDirectory = directory.children[target]
 
                 if (!targetDirectory) {
-                    newLines.push({
+                    commandHistory.push({
                         id: crypto.randomUUID(),
                         type: "text",
                         text: `cd: ${target}: No such file or directory`
@@ -174,7 +213,7 @@ function Terminal() {
                 }
 
                 if (targetDirectory.type !== "directory") {
-                    newLines.push({
+                    commandHistory.push({
                         id: crypto.randomUUID(),
                         type: "text",
                         text: `cd: ${target}: Not a directory`
@@ -188,12 +227,19 @@ function Terminal() {
 
 
             case "contact":
-                newLines.push({
+                commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "contact"
                 })
                 break
 
+            case "hello":
+                commandHistory.push({
+                    id: crypto.randomUUID(),
+                    type: "welcome"
+                })
+                break
+                
             case "ls": {
                 const directory = getCurrentDirectory()
 
@@ -203,7 +249,7 @@ function Terminal() {
                     ))
                     .join("  ")
 
-                newLines.push({
+                commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "text",
                     text: contents,
@@ -213,7 +259,7 @@ function Terminal() {
             }
 
             case "pwd":
-                newLines.push({
+                commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "text",
                     text: "/home/ben",
@@ -223,7 +269,7 @@ function Terminal() {
             case "fastfetch":
             case "neofetch":
             case "stack":
-                newLines.push({
+                commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "fastfetch",
                 })
@@ -231,19 +277,19 @@ function Terminal() {
             
 
             case "clear":
-                setLines([])
+                setCommandHistory([])
                 setInput("")
                 return
 
             default:
-                newLines.push({
+                commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "text",
                     text: `command not found: ${trimmed}`
                 })
         }
 
-        setLines(prev => [...prev, ...newLines])
+        setCommandHistory(prev => [...prev, ...commandHistory])
 
         setInput("")
     }
@@ -297,6 +343,7 @@ function Terminal() {
                         </div>
                     )
                 }
+
 
                 if (line.type === "contact") {
                     return (
@@ -492,9 +539,7 @@ function Terminal() {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                                handleCommand(input)
-                            }
+                            handleKeystrokes(e); 
                         }}
                         autoFocus
                         spellCheck={false}
@@ -503,6 +548,8 @@ function Terminal() {
             )}
         </div>
     )
+
+    
 }
 
 export default Terminal;
