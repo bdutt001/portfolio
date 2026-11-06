@@ -13,7 +13,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.28;
+  opacity: 0.35;
   mix-blend-mode: screen;
   will-change: transform;
 }
@@ -23,7 +23,25 @@
     circle,
     #91d06c 0%,
     rgba(145, 208, 108, 0.55) 25%,
-    transparent 80%
+    transparent 60%
+  );
+}
+
+.magenta {
+  background: radial-gradient(
+    circle,
+    rgb(171, 108, 208) 0%,
+    rgba(171, 108, 208, 0.45) 25%,
+    transparent 60%
+  );
+}
+
+.yellow {
+  background: radial-gradient(
+    circle,
+    var(--yellow) 0%,
+    rgb(255, 247, 153) 25%,
+    transparent 60%
   );
 }
 
@@ -32,58 +50,60 @@
     circle,
     #4c8ce4 0%,
     rgba(76, 140, 228, 0.5) 25%,
-    transparent 90%
+    transparent 60%
   );
 }
 
-.yellow {
+.orange {
   background: radial-gradient(
     circle,
-    #fff799 0%,
-    rgba(255, 247, 153, 0.45) 20%,
-    transparent 65%
+    #e4894c 0%,
+    rgba(228, 152, 76, 0.5) 25%,
+    transparent 60%
+  );
+}
+
+.red {
+  background: radial-gradient(
+    circle,
+    #e44c4c 0%,
+    rgba(228, 76, 76, 0.5) 25%,
+    transparent 60%
   );
 }
 
 .blob1 {
   width: 55vw;
-  height: 55vw;
-  top: -15%;
-  left: -12%;
+  aspect-ratio: 1;
+  top: -20%;
+  left: -20%;
   animation: drift1 7s ease-in-out infinite alternate;
 }
 
 .blob2 {
-  width: 50vw;
-  height: 50vw;
-  top: 55%;
-  left: 55%;
-  animation: drift2 10s ease-in-out infinite alternate;
+  width: 45vw;
+  aspect-ratio: 1;
+  bottom: -20%;
+  right: -20%;
+  animation: drift1 8s ease-in-out infinite alternate;
 }
 
 .blob3 {
-  width: 60vw;
-  height: 60vw;
-  top: -20%;
-  right: -20%;
-  animation: drift3 13s ease-in-out infinite alternate;
+  width: 40vw;
+  aspect-ratio: 1;
+  top: -25%;
+  right: 10%;
+  animation: drift1 9s ease-in-out infinite alternate;
 }
 
 .blob4 {
-  width: 55vw;
-  height: 55vw;
-  bottom: -50%;
-  left: 10%;
-  animation: drift4 19s ease-in-out infinite alternate;
+  width: 30vw;
+  aspect-ratio: 1;
+  bottom: -25%;
+  left: 35%;
+  animation: drift1 10s ease-in-out infinite alternate;
 }
 
-.blob5 {
-  width: 65vw;
-  height: 100vh;
-  top: -50%;
-  left: 20%;
-  animation: drift5 16s ease-in-out infinite alternate;
-}
 
 @keyframes drift1 {
   0% {
@@ -101,59 +121,29 @@
 
 @keyframes drift2 {
   0% {
-    transform: translate3d(20px, 0, 0) scale(1);
+    transform: translateY() scale(1);
   }
 
   50% {
-    transform: translate3d(120px, -60px, 0) scale(1.1);
+    transform: translateY(15vh) scale(.9);
   }
 
   100% {
-    transform: translate3d(40px, -120px, 0) scale(0.95);
+    transform: translateY(25vh) scale(.8);
   }
 }
 
 @keyframes drift3 {
   0% {
-    transform: translate3d(0, 20px, 0) scale(1);
+    transform: translateY() scale(1);
   }
 
   50% {
-    transform: translate3d(-100px, 80px, 0) scale(1.12);
+    transform: translateY(15vh) scale(.9);
   }
 
   100% {
-    transform: translate3d(-40px, -40px, 0) scale(1);
+    transform: translateY(50vh) scale(.8);
   }
 }
 
-@keyframes drift4 {
-  0% {
-    transform: translate3d(30px, -30px, 0) scale(1);
-  }
-
-  50% {
-    transform: translate3d(-80px, -100px, 0) scale(1.08);
-  }
-
-  100% {
-    transform: translate3d(-150px, -20px, 0) scale(1.15);
-  }
-}
-
-@keyframes drift5 {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.18;
-  }
-
-  50% {
-    transform: translate3d(-70px, 80px, 0) scale(1.08);
-    opacity: 0.28;
-  }
-
-  100% {
-    transform: translate3d(80px, -60px, 0) scale(1.15);
-    opacity: 0.22;
-  }
-}
