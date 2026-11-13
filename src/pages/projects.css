@@ -2,23 +2,23 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 2rem 2rem;
+  /* Fluid padding: 1rem on phones, up to 2rem on desktop */
+  padding: clamp(1rem, 3vw, 2rem);
   padding-bottom: 5rem;
   text-align: left;
   gap: 1rem;
-  overflow: hidden;
 }
 
 .projects__list {
   display: grid;
-  height: 100%;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  /* min(500px, 100%) stops the 500px minimum from overflowing narrow phones */
+  grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
   grid-auto-rows: auto;
-  gap: 2.5rem;
-  padding: 1rem;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(0rem, 1vw, 1rem);
   align-items: start;
-  overflow-y: scroll;
+  /* Let the page scroll instead of a nested scroll box */
 }
 
 .project {
@@ -26,7 +26,8 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 2rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  min-width: 0;
 
   border: .2rem solid var(--border);
   border-radius: 1rem;
@@ -34,21 +35,33 @@
   backdrop-filter: blur(16px) brightness(75%);
 
   align-self: start;
+  cursor: pointer;
   transition: border-color 0.5s ease-out;
+  /* Keep a scrolled-to card clear of a fixed header */
+  scroll-margin-top: calc(var(--header-h, 4rem) + 1rem);
 }
 
-.project:hover {
-  border: .2rem solid var(--text);
+/* Hover only on devices that really hover, so taps don't leave a stuck state */
+@media (hover: hover) {
+  .project:hover {
+    border-color: white;
+    box-shadow: .05rem .05rem .75rem var(--glow);
+  }
+
+  .project:hover .arrow-center {
+    color: var(--text-h);
+  }
 }
 
 .project__header {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  flex-wrap: nowrap;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
 }
 
 .project__title {
-  text-wrap: wrap;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 .tags {
@@ -56,7 +69,7 @@
   flex-direction: column;
   gap: 1rem;
   align-items: end;
-  margin: 0 0;
+  margin: 0;
 }
 
 .tag {
@@ -65,10 +78,12 @@
   padding: .5rem 1rem;
   border: .2rem solid var(--border);
   border-radius: 999px;
+  white-space: nowrap;
 }
 
 .tools__toggle {
   color: var(--text);
+  cursor: pointer;
   transition: color 0.5s ease-out;
 }
 
@@ -93,11 +108,10 @@
 }
 
 @supports (appearance: base-select) {
-    select, select::picker(select) {
-        appearance: base-select;
-    }
+  select, select::picker(select) {
+    appearance: base-select;
+  }
 }
-
 
 select {
   font-size: 1.1rem;
@@ -136,7 +150,6 @@ select:hover {
   text-decoration: underline;
 }
 
-
 .arrow {
   transition: transform 0.3s ease;
 }
@@ -167,37 +180,49 @@ select:hover {
   gap: 2rem;
 }
 
-
+/* 1 / -1 spans every column that exists. "span 3" created extra
+   implicit columns (and horizontal overflow) when only 1–2 fit. */
 .project.open {
-  grid-column: span 3;
+  grid-column: 1 / -1;
   border-color: var(--text);
 }
 
 .tags.open {
-  display: flex;
   flex-direction: row;
-  gap: 1rem;
+  flex-wrap: wrap;
   align-items: start;
-  margin: 0 0;
 }
 
 .arrow-center {
   color: var(--text);
   padding: 0;
   align-self: center;
-  line-height: 0%;
+  line-height: 1;
   transition: color 0.5s ease-out;
 }
 
-.project:hover .arrow-center{
-  color: var(--text-h);
+.icon-button {
+  font-size: 1.1rem;
+  font-weight: 600;
+  max-width: fit-content;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: .75rem;
+  background-color: transparent;
+  backdrop-filter: blur(16px);
+  color: var(--text-a);
+  border: .2rem solid var(--accent-border);
+  text-decoration: none;
+
+  transition: all .25s ease-in-out;
 }
 
-@media (max-width: 1100px) {
-  .projects__list {
-    grid-template-columns: 1fr;
-  }
+.icon-button:hover {
+  color: var(--text-a);
+  border-color: var(--text-a);
+}
 
+@media (max-width: 768px) {
   .project__header {
     display: flex;
     flex-direction: column;
@@ -205,9 +230,19 @@ select:hover {
   }
 
   .tags {
-    font-size: x-small;
+    font-size: .8rem;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
+    gap: .5rem;
+  }
+
+  .tag {
+    padding: .35rem .75rem;
+  }
+
+  .icon-button {
+    font-size: 1rem;
+    padding: .75rem 1rem;
   }
 }

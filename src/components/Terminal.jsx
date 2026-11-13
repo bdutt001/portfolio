@@ -30,6 +30,7 @@ function Terminal() {
 
         return path[path.length - 1]
     }
+    
     const getCurrentDirectory = () => {
         let directory = filesystem
 
@@ -40,7 +41,9 @@ function Terminal() {
         return directory
     }
 
-   
+    const getFileTxt = (file) => {
+        return file.content
+    }
 
     useEffect(() => {
         if (terminalRef.current) {
@@ -124,25 +127,60 @@ function Terminal() {
                 commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "text",
-                    text: "/home/ben",
+                    text: "/home/guest",
                 })
             break
 
             case "ls": {
                 const directory = getCurrentDirectory()
 
-                const contents = Object.entries(directory.children)
-                    .map(([name, item]) => (
-                        item.type === "directory" ? `${name}/` : name
-                    ))
-                    .join("  ")
+                const items = Object.entries(directory.children).map(([name, item]) => ({
+                    name,
+                    isDirectory: item.type === "directory",
+                }))
+
+                commandHistory.push({
+                    id: crypto.randomUUID(),
+                    type: "ls",
+                    items,
+                })
+
+                break
+            }
+
+            case "cat": {
+                const target = argument
+
+                if(!target) {
+                    break
+                }
+
+                const directory = getCurrentDirectory()
+                const targetFile = directory.children[target]
+
+                if (!targetFile) {
+                    commandHistory.push({
+                        id: crypto.randomUUID(),
+                        type: "text",
+                        text: `cat: ${target}: No such file`
+                    })
+                    break
+                }
+
+                if (targetFile.type !== "file") {
+                    commandHistory.push({
+                        id: crypto.randomUUID(),
+                        type: "text",
+                        text: `cat: ${target}: Not a file`
+                    })
+                    break
+                }
 
                 commandHistory.push({
                     id: crypto.randomUUID(),
                     type: "text",
-                    text: contents,
+                    text: getFileTxt(targetFile)
                 })
-
                 break
             }
 
@@ -197,7 +235,7 @@ function Terminal() {
         setInput("")
     }
 
-     const handleKeystrokes = useKeystrokes({
+    const handleKeystrokes = useKeystrokes({
         lines,
         input,
         setInput,
@@ -209,7 +247,6 @@ function Terminal() {
 
     return (
         <div className="terminal" ref={terminalRef}>
-
             {lines.map((line) => {
                 if (line.type === "command") {
                     return (
@@ -218,7 +255,7 @@ function Terminal() {
                             className="trow nowrap"
                         >
                             <p className="white">
-                                [ben@studio {getPromptPath(line.path || [])}]$
+                                [guest@portfolio {getPromptPath(line.path || [])}]$
                             </p>
 
                             {line.animate ? (
@@ -244,20 +281,13 @@ function Terminal() {
  ░░███████████  ░███░░░   ░███ ░███  ███░███ ░███ ░███ ░███ ░███ ░███░░░  
   ░░████░████   ░░██████  █████░░██████ ░░██████  █████░███ █████░░██████ 
    ░░░░ ░░░░     ░░░░░░  ░░░░░  ░░░░░░   ░░░░░░  ░░░░░ ░░░ ░░░░░  ░░░░░░  `}
-                            </pre>
-                            <p className="center white">
-                                Welcome to my portfolio.
-                            </p>
-                            
-
+                            </pre>                         
                             <p>
                                 Enter <span className="accent">help</span> to view commands.
                             </p>
                         </div>
                     )
                 }
-
-
                 if (line.type === "contact") {
                     return (
                         <div key={line.id} className='output'>
@@ -274,7 +304,6 @@ function Terminal() {
                         </div>
                     )
                 }
-
                 if (line.type === "help") {
                     return (
                         <div key={line.id} className='output'>
@@ -282,13 +311,15 @@ function Terminal() {
                             <p>Bash commands: </p>
                             <div className="help">
                                 <div>
+                                    <p className='accent'>cat</p>
                                     <p className='accent'>cd</p>
-                                    <p className="accent">clear</p>
+                                    <p className='accent'>clear</p>
                                     <p className='accent'>ls</p>
                                     <p className='accent'>pwd</p>
-                                    <p className="accent">help</p>
+                                    <p className='accent'>help</p>
                                 </div>
                                 <div>
+                                    <p>print file contents</p>
                                     <p>change working directory</p>
                                     <p>clear terminal history</p>
                                     <p>list directory contents</p>
@@ -296,41 +327,9 @@ function Terminal() {
                                     <p>print available commands</p>
                                 </div>
                             </div>
-                            <br/>
-                            <p>Other commands:</p>
-                            <div className="help">
-                                <div>
-                                    <p className='accent'>about</p>
-                                    <p className="accent">contact</p>
-                                    <p className="accent">stack</p>
-                                </div>
-                                <div>
-                                    <p>print summary</p>
-                                    <p>print contact information</p>
-                                    <p>print technology stack</p>
-                                </div>
-                            </div>
                         </div>
                     )
                 }
-
-                if (line.type === "about") {
-                    return (
-                        <div key={line.id} className="output">
-                            <p>About me:</p>
-
-                            <p className="white">
-                                I'm a programmer interested in building everything, from
-                                web applications to embedded systems.
-                            </p>
-                            <p>
-                                I enjoy working with React, C++
-                                and Linux.
-                            </p>
-                        </div>
-                    )
-                }
-
                 if (line.type === "fastfetch") {
                     return (
                         <div key={line.id} className='output'>
@@ -387,7 +386,7 @@ function Terminal() {
                                 <div className="fetch">
                                     <div>
                                         <p className="accent">
-                                            ben<span className="white">@</span>portfolio
+                                            guest<span className="white">@</span>portfolio
                                         </p>
                                     </div>
                                     <div>
@@ -424,16 +423,21 @@ function Terminal() {
                         </div>
                     )
                 }
-
                 if (line.type === "ls") {
                     return (
-                        <p key={line.id} className="white">
-                            about/&nbsp;&nbsp; contact.txt&nbsp;&nbsp; projects/
+                        <p key={line.id} className="output white">
+                            {line.items.map((item) => (
+                                <span
+                                    key={item.name}
+                                    className={item.isDirectory ? "accent" : "white"}
+                                    style={{ marginRight: "2ch" }}
+                                >
+                                    {item.isDirectory ? `${item.name}/` : item.name}
+                                </span>
+                            ))}
                         </p>
                     )
                 }
-
-
                 if (line.type === "text") {
                     return (
                         <p
@@ -444,16 +448,14 @@ function Terminal() {
                         </p>
                     )
                 }
-
                 return null
             })}
 
             {bootComplete && (
                 <div className="trow nowrap terminal-input-line">
                     <p className="white">
-                        [ben@studio {getPromptPath(currentPath)}]$
+                        [guest@portfolio {getPromptPath(currentPath)}]$
                     </p>
-
                     <input
                         className="terminal-input"
                         value={input}
@@ -467,9 +469,7 @@ function Terminal() {
                 </div>
             )}
         </div>
-    )
-
-    
+    )    
 }
 
 export default Terminal;

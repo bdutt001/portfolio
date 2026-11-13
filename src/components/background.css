@@ -13,7 +13,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.35;
+  opacity: 0.3;
   mix-blend-mode: screen;
   will-change: transform;
 }
@@ -48,8 +48,26 @@
 .blue {
   background: radial-gradient(
     circle,
-    #4c8ce4 0%,
-    rgba(76, 140, 228, 0.5) 25%,
+    rgb(76, 160, 228) 0%,
+    rgba(88, 76, 228, 0.5) 25%,
+    transparent 60%
+  );
+}
+
+.indigo {
+  background: radial-gradient(
+    circle,
+    rgb(88, 76, 228) 0%,
+    rgba(76, 160, 228, 0.5) 25%,
+    transparent 60%
+  );
+}
+
+.dark-green {
+  background: radial-gradient(
+    circle,
+    rgb(41, 123, 52) 10%,
+    rgb(51, 160, 115, .5) 25%,
     transparent 60%
   );
 }
@@ -66,8 +84,26 @@
 .red {
   background: radial-gradient(
     circle,
-    #e44c4c 0%,
+    rgb(228, 76, 76) 0%,
     rgba(228, 76, 76, 0.5) 25%,
+    transparent 60%
+  );
+}
+
+.magenta {
+  background: radial-gradient(
+    circle,
+    rgb(228, 76, 215) 0%,
+    rgba(152, 76, 228, 0.5) 25%,
+    transparent 60%
+  );
+}
+
+.purple {
+  background: radial-gradient(
+    circle,
+    rgb(152, 76, 228) 0%,
+    rgba(228, 76, 215, 0.5) 25%,
     transparent 60%
   );
 }
@@ -99,8 +135,8 @@
 .blob4 {
   width: 30vw;
   aspect-ratio: 1;
-  bottom: -25%;
-  left: 35%;
+  bottom: 0%;
+  left: 25%;
   animation: drift1 10s ease-in-out infinite alternate;
 }
 

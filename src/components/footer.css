@@ -1,10 +1,18 @@
 .footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  /* position: sticky; */
+  /* bottom: 0; */
+  /* left: 0; */
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  
   width: 100%;
-  height: 7.5dvh;
+  min-height: var(--footer-height);
+  padding: .5rem clamp(1rem, 3vw, 1.5rem);
+  /* keeps it clear of the iPhone home bar */
+  padding-bottom: max(.5rem, env(safe-area-inset-bottom));
 
   border-top: .2rem solid var(--border);
 
@@ -16,7 +24,126 @@
 
 .copyright {
   display: flex;
-  margin-top: 1rem;
-  margin-left: 2rem;
-  justify-self: flex-start;
+  padding: .5rem;
+}
+
+.row-center {
+  padding: .5rem;
+}
+
+.social-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 3.5rem;
+  max-width: none;
+  height: 3.5rem;
+  overflow: hidden;
+
+  padding: 0 1rem;
+
+  border: .2rem solid var(--border);
+  border-radius: .75rem;
+
+  background: var(--glass);
+  backdrop-filter: blur(16px) brightness(75%);
+
+  color: var(--text);
+  text-decoration: none;
+
+  box-shadow: 0 .5rem 1rem 0 var(--shadow);
+
+  /* lets width animate to fit-content where supported (Chromium);
+     other browsers snap open as before */
+  interpolate-size: allow-keywords;
+
+  transition:
+    width 1s ease-in-out,
+    transform .5s ease-in-out,
+    border-color .5s ease-in-out;
+}
+
+.social-button span {
+  max-width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  margin-left: 0;
+
+  transition:
+    max-width .25s ease-in-out,
+    opacity .15s ease-in-out;
+}
+
+.icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* If the icon drifts to the middle when the button expands,
+     pin it left instead:
+     inset: 0 auto 0 0;
+     width: 3.1rem; */
+}
+
+.icon.base {
+  opacity: 1;
+  transition: all .25s ease-in-out;
+}
+
+.icon.hover {
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Expanded state: hover only on devices with a mouse (no stuck state
+   after a tap on phones), plus keyboard focus */
+@media (hover: hover) {
+  .social-button:hover {
+    width: fit-content;
+    border-color: var(--accent);
+    box-shadow: .05rem .05rem .75rem var(--glow-accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .social-button:hover span {
+    opacity: 1;
+    max-width: 8rem;
+    padding-left: 1rem;
+  }
+
+  .social-button:hover .icon.base {
+    z-index: 0;
+  }
+
+  .social-button:hover .icon.hover {
+    opacity: 1;
+    transition: all .25s ease-in-out;
+  }
+}
+
+.social-button:focus-visible {
+  width: fit-content;
+  border-color: var(--accent);
+  box-shadow: .05rem .05rem .75rem var(--glow-accent);
+  color: var(--accent);
+}
+
+.social-button:focus-visible span {
+  opacity: 1;
+  max-width: 8rem;
+  padding-left: 1rem;
+}
+
+.social-button:focus-visible .icon.hover {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .footer {
+    flex-direction: column;
+    justify-content: center;
+  }
 }

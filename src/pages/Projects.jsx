@@ -1,6 +1,8 @@
 import { useState } from "react";
 import './projects.css'
 
+import BackgroundGreen from '../components/BackgroundGreen';
+
 export default function Projects() {
     const [openProject, setOpenProject] = useState(null);
     const [openTools, setOpenTools] = useState(false);
@@ -164,6 +166,7 @@ export default function Projects() {
 
     return (
         <div>
+            <BackgroundGreen></BackgroundGreen>
             <div className="projects">
                 <div className="row">
                     <h1>Projects</h1>

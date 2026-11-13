@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className="header">
         <div className="header__title">
-          <img src={Icon} className="header__icon"/>
+          <img src={Icon} className='header__icon'></img>
           <div className="header__column">
             <h1>Benjamin Dutton</h1>
             <p>Software Engineer & Web Developer</p>

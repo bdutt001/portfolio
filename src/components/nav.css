@@ -25,6 +25,7 @@
 
 .nav-item:hover {
   transform: translateY(-.2rem);
-  color: var(--text-h);
-  text-decoration: underline;
+  color: white;
+  text-decoration: none;
+  text-shadow: .05rem .05rem 1rem var(--glow);
 }

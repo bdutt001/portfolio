@@ -1,101 +1,86 @@
 import './home.css'
 
-import { Link } from 'react-router-dom';
+import BackgroundMagenta from '../components/BackgroundMagenta';
 
 import Terminal from "../components/Terminal";
-
-import Photo from "../assets/Ben_D.png";
-
-import EmailIcon from "../assets/email.svg"
-import EmailIconHover from "../assets/email-hover.svg"
-import LinkedinIcon from "../assets/linkedin.svg";
-import LinkedinIconHover from "../assets/linkedin-hover.svg";
-import GithubIcon from "../assets/github.svg";
-import GithubIconHover from "../assets/github-hover.svg";
-
+import AsciiLogo3D from '../components/AsciiLogo3D';
 
 export default function Home()  {
     return ( 
-        <div className="landing">
-            <div className="home">
-                <div className="home left">
-                    <Terminal></Terminal>
-                </div>
-                <div className="home right">
-                    <div className="profile">
-                        <div className="profile__content">
-                            <img src={Photo} className="profile__photo"/>
-                            <div className="profile__name">
-                                <h2>Benjamin Dutton</h2>
+        <div>
+            <BackgroundMagenta></BackgroundMagenta>
+            <div>    
+                <div className="landing">
+                    <div className="home">
+                        <div className='home--top'>
+                            <div className='col-center'>
+                                <h1 className='hello'>Hello, world!</h1>
                                 <div className="job-row">
-                                    <Link 
-                                        to="/about#job--wr" 
-                                        // className='job__role'
+                                    <p>
+                                        I build everything from websites to embedded systems.<br/>
+                                        I'm currently a&nbsp;
+                                    <a
+                                        to="/about#job--wr"
+                                        className='inlink'
                                     >
                                         Software Engineer
-                                    </Link>
-                                    <p>at</p>
+                                    </a>
+                                    &nbsp;at&nbsp;
                                     <a href="https://wrsystems.com/">
-                                        WR Systems
+                                        WR Systems ↗
                                     </a>
-                                </div>
-                                <div className="job-row">
-                                    <Link 
-                                        to="/about#job--gfg" 
-                                        // className='job__role'
-                                    > 
-                                            Web Developer
-                                    </Link>
-                                    <p>at</p>
+                                    &nbsp;and a&nbsp;
+                                    <a
+                                        to="/about#job--gfg"
+                                        className='inlink'
+                                    >
+                                        Web Developer
+                                    </a>
+                                    &nbsp;at&nbsp;
                                     <a href="https://grandforgegames.com/">
-                                        Grand Forge Games
+                                        Grand Forge Games ↗
                                     </a>
+                                    .
+                                    </p>
                                 </div>
                             </div>
+                            <div>
+                                <AsciiLogo3D></AsciiLogo3D>
+                            </div>
                         </div>
-                        <div className="row-center">
-                            <a
-                                href="mailto:bendutton9@gmail.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="social-button email"
-                            >
-                                <div className="icon-wrapper">
-                                    <img src={EmailIcon} className="icon base"/>
-                                    <img src={EmailIconHover} className="icon hover"/>
+                        <div className='col'>
+                            <h1 className='h1'>Bash Terminal</h1>
+                            <p>I work with Bash every day. In fact, I enjoy so much that I have created this terminal and an accompanying file system. You can use Bash commands to navigate, view, and search the contents of this portfolio.</p>
+                            <div className='cli'>
+                                <Terminal></Terminal>
+                            </div>
+                            <h2>Keystrokes</h2>
+                            {/* <div className='row-apart'>
+                                <p>Ctrl + L</p>
+                                <p>Clear command history</p>
+                            </div>
+                            <div className='row-apart'>
+                                <p>↑</p>
+                                <p>Fill most recent command</p>
+                            </div> */}
+                            <div className='keystrokes'>
+                                <div>
+                                    <p>↑</p>
+                                    <p>↓</p>
+                                    <p>Tab</p>
+                                    <p>Ctrl + L</p>
                                 </div>
-                                <span>Email</span>
-                            </a>
-                            <a
-                                href="https://linkedin.com/in/benjamin-dutton-odu"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="social-button linkedin"
-                            >
-                                <div className="icon-wrapper">
-                                    <img src={LinkedinIcon} className="icon base"/>
-                                    <img src={LinkedinIconHover} className="icon hover"/>
+                                <div>
+                                    <p>Fill previous command</p>
+                                    <p>Fill next command</p>
+                                    <p>Autocomplete commands, directories, or files (press twice to list all matches)</p>
+                                    <p>Clear command history</p>
                                 </div>
-                                <span>LinkedIn</span>
-                            </a>
-                            <a
-                                href="https://github.com/bdutt001"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="social-button github"
-                            >
-                                <div className="icon-wrapper">
-                                    <img src={GithubIcon} className="icon base"/>
-                                    <img src={GithubIconHover} className="icon hover"/>
-                                </div>
-                                <span>GitHub</span>
-                            </a>
-                        </div>
+                            </div>
+                        </div>                
                     </div>
                 </div>
-            
             </div>
-              
         </div>
           );
 }

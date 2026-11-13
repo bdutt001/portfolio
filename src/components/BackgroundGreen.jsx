@@ -5,8 +5,8 @@ export default function BackgroundGreen() {
         <div className="background">
             <div className="blob blob1 green"></div>
             <div className="blob blob2 green"></div>
-            <div className="blob blob3 blue"></div>
-            <div className='blob blob4 yellow'></div>
-        </div>  
+            <div className="blob blob3 dark-green"></div>
+            <div className='blob blob4 dark-green'></div>
+        </div> 
     );
 }

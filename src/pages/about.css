@@ -1,35 +1,27 @@
+/* Mobile-first: one column, normal page scrolling.
+   Wider layouts are added with min-width queries further down. */
+
 .about {
   display: flex;
   flex-direction: column;
-  
-  height: 100%;
-
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
   padding-bottom: 5rem;
   text-align: left;
 }
 
 .about-grid {
   display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 2.5rem;
-
-  
-  min-height: 100%;
-
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
 }
 
 .about-col {
   display: flex;
   flex-direction: column;
   padding: .5rem;
-  gap: 2rem;
+  gap: 1rem;
   min-width: 0;
-
-  min-height: 0;
-  height: 100%;
-  overflow: hidden;
 }
 
 .help {
@@ -38,40 +30,14 @@
   gap: 1rem;
 }
 
-.education {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: stretch;
-  gap: 2rem;
-
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-
-.timeline {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: stretch;
-  text-align: left;
-  gap: 2rem;
-
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-
+.education,
+.timeline,
 .skills {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   min-width: 0;
-  
-  flex: 1;
   min-height: 0;
-  overflow-y: auto;
 }
 
 .timeline-item,
@@ -81,13 +47,15 @@
   display: flex;
   flex-direction: column;
   gap: .75rem;
-  margin-right: 1rem;
-
-  padding: 2rem 2rem;
+  min-width: 0;
+  margin: clamp(.25rem, 1vw, 1rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
   border: .2rem solid var(--border);
   border-radius: 1rem;
   background: var(--glass);
   backdrop-filter: blur(16px) brightness(75%);
+  /* Keeps /about#job--wr etc. from landing under a fixed header */
+  scroll-margin-top: calc(var(--header-h, 4rem) + 1rem);
 }
 
 .timeline-item,
@@ -97,20 +65,19 @@
   transition: border-color 0.5s ease-out;
 }
 
-.skill-item {
-  gap: .75rem;
-}
+@media (hover: hover) {
+  .timeline-item:hover,
+  .skill-item:hover,
+  .ed-item:hover {
+    border-color: white;
+    box-shadow: .05rem .05rem .75rem var(--glow);
+  }
 
-.timeline-item:hover,
-.skill-item:hover,
-.ed-item:hover {
-  border: .2rem solid var(--text);
-}
-
-.timeline-item:hover .arrow-center,
-.skill-item:hover .arrow-center,
-.ed-item:hover .arrow-center {
-  color: var(--text-h);
+  .timeline-item:hover .arrow-center,
+  .skill-item:hover .arrow-center,
+  .ed-item:hover .arrow-center {
+    color: white;
+  }
 }
 
 .skill-sub-item {
@@ -119,53 +86,32 @@
   gap: .75rem;
 }
 
-.about-col,
-.timeline,
-.education,
-.skill-item,
-.timeline-item,
-.ed-item {
-  min-width: 0;
-}
-
 .arrow-center {
   color: var(--text);
   padding: 0;
   align-self: center;
-  line-height: 0%;
+  line-height: 1;
   transition: color 0.5s ease-out;
 }
 
-.expandable-wrapper__job {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease-out;
-}
-
-.expandable-wrapper__job.open {
-  max-height: 500px;
-}
-
-.expandable-content__job {
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  padding: 0;
-}
-
+/* Expandables: the same grid-rows trick as the Projects page.
+   max-height: 500px clipped long content and made the animation timing uneven. */
+.expandable-wrapper__job,
 .expandable-wrapper__skill {
-  padding: 0 0;
-  
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
-  transition: max-height 0.5s ease-out;
+  transition: grid-template-rows 0.4s ease-out;
 }
 
+.expandable-wrapper__job.open,
 .expandable-wrapper__skill.open {
-  max-height: 500px;
+  grid-template-rows: 1fr;
 }
 
+.expandable-content__job,
 .expandable-content__skill {
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: .5rem;
@@ -177,38 +123,56 @@
   justify-content: flex-end;
 }
 
-@media (max-width: 1000px) {
-  .about {
-    display: flex;
-    overflow: scroll;
-  }
-  
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-col {
-    min-height: fit-content;
-    overflow: visible;
-  }
-
+/* Phones: stack the row-apart pairs */
+@media (max-width: 640px) {
   .--column-mobile {
     flex-direction: column;
+    align-items: flex-start;
     gap: .5rem;
   }
 
   .contact-grid {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 
   h2,
   h3 {
-    text-wrap: wrap;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
   }
 }
 
-@media (max-width: 1700px) {
+/* Tablets / small laptops: two columns, page still scrolls */
+@media (min-width: 900px) {
   .about-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Wide screens: three columns that each scroll on their own,
+   sized to the visible viewport minus the header. */
+@media (min-width: 1400px) {
+  .about {
+    height: calc(100svh - var(--header-h, 4rem));
+    padding-bottom: 2rem;
+  }
+
+  .about-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+  }
+
+  .about-col {
+    min-height: 0;
+  }
+
+  .education,
+  .timeline,
+  .skills {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 }
