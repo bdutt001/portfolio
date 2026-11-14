@@ -3,22 +3,18 @@
   flex-direction: column;
   text-align: left;
   gap: 2.5rem;
-  /* clip only sideways, so tall content is never cut off at the bottom */
   overflow-x: clip;
   width: 100%;
   padding: 1rem;
 }
 
-/* Hero: at least one screen tall (minus the header), but able to grow.
-   svh = the "small" viewport (mobile URL bar visible), so it doesn't
-   jump around while the bar slides in and out the way dvh does. */
 .home--top {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, .8fr);
   align-items: center;
   text-align: center;
   gap: clamp(1.5rem, 4vw, 3rem);
-  min-height: calc(100vh - var(--header-h, 4rem));   /* fallback */
+  min-height: calc(100vh - var(--header-h, 4rem));
   min-height: calc(100svh - var(--header-h, 4rem));
   padding-bottom: clamp(2rem, 8vh, 6rem);
 }
@@ -33,12 +29,10 @@
 }
 
 .hello {
-  font-family: "JetBrains Mono", monospace;
-  /* 2.25rem on phones, scales up to 4rem */
   font-size: clamp(2.25rem, 5vw + 1rem, 4rem);
   font-weight: 750;
   line-height: 1.1;
-  padding-bottom: clamp(1rem, 3vw, 2rem);
+  padding-bottom: clamp(1rem, 3vw, 1rem);
 }
 
 .h1 {
@@ -148,8 +142,6 @@
   align-items: center;
 }
 
-/* NOTE: these two are global selectors — they affect every page,
-   not just Home. Consider moving them to your base/index CSS. */
 a {
   font-weight: bold;
 }
@@ -166,23 +158,21 @@ section {
   gap: 1rem;
 }
 
-/* Keep the ASCII logo inside its column instead of shifting it with margins */
 .ascii {
   max-width: 100%;
   overflow: hidden;
 }
 
 .logo-wrap {
-  container-type: inline-size;   /* lets cqi measure this box */
+  container-type: inline-size;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-/* Tablet & down: stack the hero */
 @media (max-width: 900px) {
   .logo-wrap {
-    width: min(100%, 20rem);   /* how big the logo gets on mobile */
+    width: min(100%, 20rem); 
     margin-inline: auto;
   }
 

@@ -10,7 +10,7 @@ The following list includes bugs to be addressed.
 - [x] Fix project card title row spacing (should take up full with of the container).
 - [x] Fix footer row spacing (should take up full width of the container).
 - [x] Fix header text alignment (title and subtitle container should be centered vertically).
-- [ ] Fix scrolling behavior on about page.
+- [x] Fix scrolling behavior on about page.
 ### Terminal:
 - [x] Eliminate screen scroll after boot sequence.
 <br></br>
@@ -22,8 +22,8 @@ Objectives for additional or updated page content.
 ### Landing Page
 - [x] Add a short bio section to the home page.
 ### About Page:
-- [ ] Update job responsibilities for WR and Grand Forge Games.
-- [ ] Update skills.
+- [x] Update job responsibilities for WR and Grand Forge Games.
+- [x] Update skills.
 ## Styling
 Objectives for the styling of page elements and animations.
 ### Animations:

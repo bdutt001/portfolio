@@ -1,6 +1,3 @@
-/* Mobile-first: one column, normal page scrolling.
-   Wider layouts are added with min-width queries further down. */
-
 .about {
   display: flex;
   flex-direction: column;
@@ -54,7 +51,6 @@
   border-radius: 1rem;
   background: var(--glass);
   backdrop-filter: blur(16px) brightness(75%);
-  /* Keeps /about#job--wr etc. from landing under a fixed header */
   scroll-margin-top: calc(var(--header-h, 4rem) + 1rem);
 }
 
@@ -92,8 +88,6 @@
   transition: color 0.5s ease-out;
 }
 
-/* Expandables: the same grid-rows trick as the Projects page.
-   max-height: 500px clipped long content and made the animation timing uneven. */
 .expandable-wrapper__job,
 .expandable-wrapper__skill {
   display: grid;
@@ -140,18 +134,15 @@
   }
 }
 
-/* Tablets / small laptops: two columns, page still scrolls */
 @media (min-width: 900px) {
   .about-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Wide screens: three columns that each scroll on their own,
-   sized to the visible viewport minus the header. */
+
 @media (min-width: 1400px) {
   .about {
-    height: calc(100svh - var(--header-h, 4rem));
     padding-bottom: 2rem;
   }
 
@@ -159,7 +150,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     flex: 1;
     min-height: 0;
-    align-items: stretch;
   }
 
   .about-col {
@@ -170,7 +160,5 @@
   .timeline,
   .skills {
     flex: 1;
-    overflow-y: auto;
-    overscroll-behavior: contain;
   }
 }

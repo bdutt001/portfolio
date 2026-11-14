@@ -75,7 +75,7 @@ export default function About()  {
                                     <p>Virginia Beach, Virginia</p>
                                 </div>
                                 <p>
-                                    Developing navigation software for U.S. Navy submarines
+                                    Developing navigation software for U.S. Navy systems
                                 </p>
                                 <div
                                     className={`expandable-wrapper__job ${
@@ -86,7 +86,16 @@ export default function About()  {
                                         <h3>Responsibilities</h3>
                                         <ul>
                                             <li>
-                                                Implement mission-critical sensor interfaces
+                                                Develop and maintain C and C++ software for naval navigation systems
+                                            </li>
+                                            <li>
+                                                Write and run unit tests to verify software against system requirements
+                                            </li>
+                                            <li>
+                                                Troubleshoot and resolve defects in collaboration with systems and test engineers
+                                            </li>
+                                            <li>
+                                                Follow Agile Scrum development practices
                                             </li>
                                         </ul>
                                     </div>
@@ -125,19 +134,16 @@ export default function About()  {
                                     }`}
                                 >
                                     <div className='expandable-content__job'>
-                                        <h3 style={{color: "#9ca3af"}}>Responsibilities</h3>
+                                        <h3>Responsibilities</h3>
                                         <ul>
                                             <li>
-                                                Create an intutive and cohesive visual design that reflects the brand
+                                                Create a cohesive visual design that reflects the brand
                                             </li>
                                             <li>
-                                                Implement interactive UI elements including animation, hero banners, and dynamic content sections
+                                                Update website content with new game assets and company personnel
                                             </li>
                                             <li>
-                                                Build scalable React components for team members and projects
-                                            </li>
-                                            <li>
-                                                Ensure website responsiveness across various devices and browsers using modern CSS and media queries
+                                                Ensure website responsiveness across various devices and browsers
                                             </li>
                                         </ul>
                                     </div>
@@ -157,7 +163,7 @@ export default function About()  {
                                 }
                             >
                                 <h2>Programming Languages</h2>
-                                <p>9 years of experience</p>
+                                <p>C++, C and more</p>
                                 <div
                                     className={`expandable-wrapper__skill ${
                                         openSkill === "languages" ? "open" : ""
@@ -166,62 +172,57 @@ export default function About()  {
                                     <div className='expandable-content__skill'>
                                         <div className='skill-sub-item'>
                                             <div className='row-apart'>
-                                                <h3 style={{color: "#9ca3af"}}>Programming</h3>
-                                                <h3 style={{color: "#9ca3af"}}>Years Experience</h3>
+                                                <h3>Programming</h3>
+                                                <h3>Proficiency</h3>
                                             </div>
                                             <ul>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Java</p>
-                                                        <p>9</p>
-                                                    </div>
-                                                </li>
+                                                
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>C++</p>
-                                                        <p>9</p>
+                                                        <p>Advanced</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>C</p>
-                                                        <p>2</p>
+                                                        <p>Proficient</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className="row-apart">
+                                                        <p>Java</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
             
                                         <div className='skill-sub-item'>
-                                            <h3 style={{color: "#9ca3af"}}>Scripting</h3>
+                                            <h3>Scripting</h3>
                                             <ul>
                                                 <li>
                                                     <div className="row-apart">
-                                                        <p>Python</p>
-                                                        <p>3</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="row-apart">
                                                         <p>Bash</p>
-                                                        <p>2</p>
+                                                        <p>Advanced</p>
                                                     </div>
                                                 </li>
-                                                <li>
+                                                 <li>
                                                     <div className="row-apart">
                                                         <p>JavaScript</p>
-                                                        <p>2</p>
+                                                        <p>Advanced</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>TypeScript</p>
-                                                        <p>1</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>Lua</p>
-                                                        <p>{"<"}1</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -231,7 +232,7 @@ export default function About()  {
                                 <h2 className='arrow-center'>{openSkill === "languages" ? "⌃" : "⌄"}</h2>
                             </div>
             
-                            <div
+                            {/*<div
                                 id="skill--tools"
                                 className={`skill-item ${openSkill === "tools" ? "open" : ""}`}
                                 onClick={() =>
@@ -239,77 +240,34 @@ export default function About()  {
                                 }
                             >
                                 <h2>Developer Tools</h2>
-                                <p>4 years of experience</p>
+                                <p>GitHub, Docker and more</p>
                                 <div
                                     className={`expandable-wrapper__skill ${
                                         openSkill === "tools" ? "open" : ""
                                     }`}
                                 >
                                     <div className='expandable-content__skill'>
-                                        <div className="skill-sub-item">
-                                            <div className='row-apart'>
-                                                <h3 style={{color: "#9ca3af"}}>Version Control</h3>
-                                                <h3 style={{color: "#9ca3af"}}>Years Experience</h3>
-                                            </div>
-                                            <ul>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>GitHub</p>
-                                                        <p>6</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Git</p>
-                                                        <p>4</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="skill-sub-item">
-                                            <h3 style={{color: "#9ca3af"}}>Containerization</h3>
+                                        {/* <div className="skill-sub-item">
+                                            <h3>Containerization</h3>
                                             <ul>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>Docker</p>
-                                                        <p>1</p>
+                                                        <p>Proficient</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className="row-apart">
+                                                        <p>Podman</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                             </ul>
-                                        </div>
-                                        <div className="skill-sub-item">
-                                            <h3 style={{color: "#9ca3af"}}>Hosting</h3>
-                                            <ul>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>GitHub Pages</p>
-                                                        <p>3</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Firebase</p>
-                                                        <p>{"< "}1</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Render</p>
-                                                        <p>{"< "}1</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Clever Cloud</p>
-                                                        <p>{"< "}1</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                                 <h2 className='arrow-center'>{openSkill === "tools" ? "⌃" : "⌄"}</h2>
-                            </div>
+                            </div> */}
                             <div
                                 id="skill--web"
                                 className={`skill-item ${openSkill === "web" ? "open" : ""}`}
@@ -318,7 +276,7 @@ export default function About()  {
                                 }
                             >
                                 <h2>Web & Mobile Development</h2>
-                                <p>3 years of experience</p>
+                                <p>React, Node.js and more</p>
                                 <div
                                     className={`expandable-wrapper__skill ${
                                         openSkill === "web" ? "open" : ""
@@ -327,66 +285,49 @@ export default function About()  {
                                     <div className='expandable-content__skill'>
                                         <div className="skill-sub-item">
                                             <div className='row-apart'>
-                                                <h3 style={{color: "#9ca3af"}}>Frontend</h3>
-                                                <h3 style={{color: "#9ca3af"}}>Years Experience</h3>
+                                                <h3>Frontend</h3>
+                                                <h3>Proficiency</h3>
                                             </div>
                                             <ul>
                                                 <li>
                                                     <div className="row-apart">
+                                                        <p>React</p>
+                                                        <p>Proficient</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className="row-apart">
+                                                        <p>React Native</p>
+                                                        <p>Proficient</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className="row-apart">
                                                         <p>HTML</p>
-                                                        <p>3</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>CSS</p>
-                                                        <p>3</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>React</p>
-                                                        <p>2</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div className="skill-sub-item">
-                                            <h3 style={{color: "#9ca3af"}}>Backend</h3>
+                                            <h3>Backend</h3>
                                             <ul>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>Node.js</p>
-                                                        <p>1</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>Express</p>
-                                                        <p>1</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Rest APIs</p>
-                                                        <p>{"< "}1</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="skill-sub-item">
-                                            <h3 style={{color: "#9ca3af"}}>Mobile</h3>
-                                            <ul>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>React Native</p>
-                                                        <p>1</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Expo</p>
-                                                        <p>1</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -404,57 +345,64 @@ export default function About()  {
                                 }
                             >
                                 <h2>Project Management</h2>
-                                <p>2 years of experience</p>
+                                <p>Git, Jira and more</p>
                                 <div
                                     className={`expandable-wrapper__skill ${
                                         openSkill === "management" ? "open" : ""
                                     }`}
                                 >
                                     <div className='expandable-content__skill'>
-                                        <div className="skill-sub-item">
+                                        <div className="skill-sub-item"> 
                                             <div className='row-apart'>
-                                                <h3 style={{color: "#9ca3af"}}>Methodologies</h3>
-                                                <h3 style={{color: "#9ca3af"}}>Years Experience</h3>
+                                                <h3>Version Control</h3>
+                                                <h3>Proficiency</h3>
                                             </div>
                                             <ul>
+                                                
                                                 <li>
                                                     <div className="row-apart">
-                                                        <p>Agile (Scrum)</p>
-                                                        <p>1</p>
+                                                        <p>Git</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="row-apart">
-                                                        <p>Sprint planning</p>
-                                                        <p>1</p>
+                                                        <p>GitHub</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div className="skill-sub-item">
-                                            <h3 style={{color: "#9ca3af"}}>Task Management</h3>
+                                            <h3>Methodologies</h3>
                                             <ul>
                                                 <li>
                                                     <div className="row-apart">
+                                                        <p>Scrum</p>
+                                                        <p>Proficient</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="skill-sub-item">
+                                            <h3>Task Management</h3>
+                                            <ul>
+                                                <li>
+                                                    <div className='row-apart'>
+                                                        <p>Jira</p>
+                                                        <p>Proficient</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className="row-apart">
                                                         <p>GitHub Issues</p>
-                                                        <p>2</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>Trello</p>
-                                                        <p>1</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="skill-sub-item">
-                                            <h3 style={{color: "#9ca3af"}}>Documentation</h3>
-                                            <ul>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Markdown</p>
-                                                        <p>2</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -471,7 +419,7 @@ export default function About()  {
                                 }
                             >
                                 <h2>Databases</h2>
-                                <p>1 year of experience</p>
+                                <p>PostgreSQL & MySQL</p>
                                 <div
                                     className={`expandable-wrapper__skill ${
                                         openSkill === "databases" ? "open" : ""
@@ -480,31 +428,20 @@ export default function About()  {
                                     <div className='expandable-content__skill'>
                                         <div className="skill-sub-item">
                                             <div className='row-apart'>
-                                                <h3 style={{color: "#9ca3af"}}>Databases</h3>
-                                                <h3 style={{color: "#9ca3af"}}>Years Experience</h3>
+                                                <h3>Databases</h3>
+                                                <h3>Proficiency</h3>
                                             </div>
                                             <ul>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>PostgreSQL</p>
-                                                        <p>1</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="row-apart">
                                                         <p>MySQL</p>
-                                                        <p>{"< "}1</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="skill-sub-item">
-                                            <h3 style={{color: "#9ca3af"}}>ORM</h3>
-                                            <ul>
-                                                <li>
-                                                    <div className="row-apart">
-                                                        <p>Prisma</p>
-                                                        <p>1</p>
+                                                        <p>Proficient</p>
                                                     </div>
                                                 </li>
                                             </ul>
