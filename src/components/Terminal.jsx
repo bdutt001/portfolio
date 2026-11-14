@@ -7,9 +7,47 @@ import { filesystem } from '../data/fileSystem';
 
 import { useKeystrokes } from '../hooks/useKeystrokes';
 
+const COMMANDS = ["about", "cat", "cd", "clear", "contact", "hello", "help", "ls", "man", "pwd", "whoami"]
+
+const longestCommonPrefix = (words) =>
+    words.reduce((prefix, word) => {
+        let i = 0
+        while (i < prefix.length && prefix[i] === word[i]) i++
+        return prefix.slice(0, i)
+    }, words[0] ?? "")
+
+const getCompletion = (input, directory) => {
+    const text = input.trimStart()
+    const firstSpace = text.search(/\s/)
+
+    // Still typing the command name
+    if (firstSpace === -1) {
+        const matches = COMMANDS
+            .filter(cmd => cmd.startsWith(text))
+            .map(name => ({ name, isDirectory: false }))
+        return { matches, partial: text, kind: "command" }
+    }
+
+    // Typing an argument: cd takes folders, cat takes files
+    const commandName = text.slice(0, firstSpace).toLowerCase()
+    const partial = text.slice(text.search(/\S*$/))
+
+    let wanted
+    if (commandName === "cd") wanted = "directory"
+    else if (commandName === "cat") wanted = "file"
+    else return { matches: [], partial, kind: null }
+
+    const matches = Object.entries(directory.children)
+        .filter(([name, item]) => item.type === wanted && name.startsWith(partial))
+        .map(([name, item]) => ({ name, isDirectory: item.type === "directory" }))
+
+    return { matches, partial, kind: wanted }
+}
+
 function Terminal() {
     const [input, setInput] = useState("")
     const terminalRef = useRef(null)
+    const lastTabRef = useRef(null)
     const [currentPath, setCurrentPath] = useState([])
     const [historyIndex, setHistoryIndex] = useState(-1)
     const [bootComplete, setBootComplete] = useState(false)
@@ -149,7 +187,7 @@ function Terminal() {
             }
 
             case "cat": {
-                const target = argument
+                const target = argument.replace(/\/+$/, "")
 
                 if(!target) {
                     break
@@ -185,7 +223,7 @@ function Terminal() {
             }
 
             case "cd": {
-                const target = argument
+                const target = argument.replace(/\/+$/, "")
 
                 if (!target || target === "~") {
                     setCurrentPath([])
@@ -233,6 +271,41 @@ function Terminal() {
         setCommandHistory(prev => [...prev, ...commandHistory])
 
         setInput("")
+    }
+
+    const handleTab = () => {
+        const { matches, partial, kind } = getCompletion(input, getCurrentDirectory())
+        if (matches.length === 0) return
+
+        const base = input.slice(0, input.length - partial.length)
+
+        // One match: complete it fully
+        if (matches.length === 1) {
+            const suffix = kind === "directory" ? "/" : " "
+            setInput(base + matches[0].name + suffix)
+            lastTabRef.current = null
+            return
+        }
+
+        // Several matches: fill in what they share
+        const prefix = longestCommonPrefix(matches.map(m => m.name))
+        if (prefix.length > partial.length) {
+            setInput(base + prefix)
+            lastTabRef.current = null
+            return
+        }
+
+        // Nothing more to fill: second Tab in a row lists the matches
+        if (lastTabRef.current === input) {
+            setCommandHistory(prev => [
+                ...prev,
+                { id: crypto.randomUUID(), type: "command", text: input, path: [...currentPath], animate: false },
+                { id: crypto.randomUUID(), type: "ls", items: matches },
+            ])
+            lastTabRef.current = null
+        } else {
+            lastTabRef.current = input
+        }
     }
 
     const handleKeystrokes = useKeystrokes({
@@ -459,9 +532,17 @@ function Terminal() {
                     <input
                         className="terminal-input"
                         value={input}
-                        onChange={(e) => setInput(e.target.value)}
+                        onChange={(e) => {
+                            setInput(e.target.value)
+                            lastTabRef.current = null
+                        }}
                         onKeyDown={(e) => {
-                            handleKeystrokes(e); 
+                            if (e.key === "Tab") {
+                                e.preventDefault()   // keeps focus in the terminal
+                                handleTab()
+                                return
+                            }
+                            handleKeystrokes(e)
                         }}
                         autoFocus
                         spellCheck={false}
@@ -471,5 +552,6 @@ function Terminal() {
         </div>
     )    
 }
+
 
 export default Terminal;
