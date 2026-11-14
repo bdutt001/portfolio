@@ -1,31 +1,8 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { createAsciiScene } from "../data/asciiSceneEngine";
 
-// Monospace glyphs are ~0.6em wide; with lineHeight 1.2 a cell is 0.5 wide per 1 tall,
-// which is the charAspect the engine renders for.
 const CHAR_ASPECT = 0.5;
 
-/**
- * <AsciiLogo3D /> — the logo rebuilt as a 3D scene (frog + headphones + laptop on a desk),
- * viewed in perspective by a camera that orbits it, rendered as ASCII.
- *
- * Props
- *  cols        character columns (default 140). Cost grows with cols × rows; ~100–120 is light.
- *  fontSize    px font size, or any CSS length (default 10)
- *  speed       camera orbit speed in degrees / second (default 30; negative = other direction)
- *  swing       if > 0, rock the camera ±swing degrees instead of orbiting all the way round
- *  axis        'y' orbit around the scene (default) | 'z' roll the camera flat
- *  mode        'color' (default) | 'mono'
- *  color       text colour in mono mode (default '#e6e6e6')
- *  desk        draw the desk (default true)
- *  outline     dim ink outlines where nearer surfaces overlap farther ones (default true)
- *  elevation   camera height in degrees above the desk (default 15)
- *  distance    camera distance — smaller = stronger perspective (default 6.4)
- *  fov         vertical field of view in degrees (default 34)
- *  fps         max frames per second (default 30)
- *  paused      freeze the animation
- *  className, style   passed to the <pre>
- */
 export default function AsciiLogo3D({
   cols = 140,
   fontSize = 10,

@@ -47,19 +47,13 @@ const getCompletion = (input, directory) => {
 function Terminal() {
     const [input, setInput] = useState("")
     const terminalRef = useRef(null)
+    const inputRef = useRef(null)
+    const [inView, setInView] = useState(false)
     const lastTabRef = useRef(null)
     const [currentPath, setCurrentPath] = useState([])
     const [historyIndex, setHistoryIndex] = useState(-1)
     const [bootComplete, setBootComplete] = useState(false)
-    const [lines, setCommandHistory] = useState([
-        {
-            id: "boot-command",
-            type: "command",
-            text: "hello",
-            path: [],
-            animate: true,
-        }
-    ])
+    const [lines, setCommandHistory] = useState([])
 
     const getPromptPath = (path) => {
         if (!path || path.length === 0) {
@@ -88,24 +82,51 @@ function Terminal() {
             terminalRef.current.scrollTop = terminalRef.current.scrollHeight
         }
     }, [lines])
-    useEffect(() => {  
+    useEffect(() => {
+        if (!inView) return
+
+        setCommandHistory([
+            {
+                id: "boot-command",
+                type: "command",
+                text: "hello",
+                path: [],
+                animate: true,
+            }
+        ])
+
         const welcomeTimer = setTimeout(() => {
             setCommandHistory(prev => [
                 ...prev,
-                {
-                    id: "welcome-message",
-                    type: "welcome",
-                }
+                { id: "welcome-message", type: "welcome" }
             ])
-
             setBootComplete(true)
-        }, 2000)        
+        }, 2000)
 
-        return () => {
-            clearTimeout(welcomeTimer)
-        }
+        return () => clearTimeout(welcomeTimer)
+    }, [inView])
+    useEffect(() => {
+        const el = terminalRef.current
+        if (!el) return
 
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setInView(true)
+                    observer.disconnect()   // only boot once
+                }
+            },
+            { threshold: 0.4 }   // 40% of the terminal visible
+        )
+
+        observer.observe(el)
+        return () => observer.disconnect()
     }, [])
+    useEffect(() => {
+        if (bootComplete) {
+            inputRef.current?.focus({ preventScroll: true })
+        }
+    }, [bootComplete])
 
     const handleCommand = (command) => {
        const trimmed = command.trim()
@@ -502,7 +523,7 @@ function Terminal() {
                             {line.items.map((item) => (
                                 <span
                                     key={item.name}
-                                    className={item.isDirectory ? "accent" : "white"}
+                                    className={item.isDirectory ? "accent" : ''}
                                     style={{ marginRight: "2ch" }}
                                 >
                                     {item.isDirectory ? `${item.name}/` : item.name}
@@ -530,6 +551,7 @@ function Terminal() {
                         [guest@portfolio {getPromptPath(currentPath)}]$
                     </p>
                     <input
+                        ref={inputRef}
                         className="terminal-input"
                         value={input}
                         onChange={(e) => {
@@ -544,7 +566,6 @@ function Terminal() {
                             }
                             handleKeystrokes(e)
                         }}
-                        autoFocus
                         spellCheck={false}
                     />
                 </div>

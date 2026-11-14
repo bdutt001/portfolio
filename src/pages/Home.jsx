@@ -44,8 +44,8 @@ export default function Home()  {
                                     </p>
                                 </div>
                             </div>
-                            <div>
-                                <AsciiLogo3D></AsciiLogo3D>
+                            <div className='logo-wrap'>
+                                <AsciiLogo3D fontSize="min(10px, 100cqi / 86)"></AsciiLogo3D>
                             </div>
                         </div>
                         <div className='col'>
@@ -55,14 +55,6 @@ export default function Home()  {
                                 <Terminal></Terminal>
                             </div>
                             <h2>Keystrokes</h2>
-                            {/* <div className='row-apart'>
-                                <p>Ctrl + L</p>
-                                <p>Clear command history</p>
-                            </div>
-                            <div className='row-apart'>
-                                <p>↑</p>
-                                <p>Fill most recent command</p>
-                            </div> */}
                             <div className='keystrokes'>
                                 <div>
                                     <p>↑</p>

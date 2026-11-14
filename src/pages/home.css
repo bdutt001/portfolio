@@ -1,7 +1,7 @@
 .home {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
   gap: 2.5rem;
   /* clip only sideways, so tall content is never cut off at the bottom */
   overflow-x: clip;
@@ -16,6 +16,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, .8fr);
   align-items: center;
+  text-align: center;
   gap: clamp(1.5rem, 4vw, 3rem);
   min-height: calc(100vh - var(--header-h, 4rem));   /* fallback */
   min-height: calc(100svh - var(--header-h, 4rem));
@@ -171,8 +172,20 @@ section {
   overflow: hidden;
 }
 
+.logo-wrap {
+  container-type: inline-size;   /* lets cqi measure this box */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 /* Tablet & down: stack the hero */
 @media (max-width: 900px) {
+  .logo-wrap {
+    width: min(100%, 20rem);   /* how big the logo gets on mobile */
+    margin-inline: auto;
+  }
+
   .home--top {
     grid-template-columns: minmax(0, 1fr);
     min-height: auto;

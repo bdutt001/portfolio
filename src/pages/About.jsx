@@ -30,9 +30,6 @@ export default function About()  {
                             <div
                                 id="school--odu"
                                 className="ed-item"
-                                onClick={() =>
-                                    setOpenSchool(openSchool === "odu" ? null : "odu")
-                                }
                             >
                                 <div className="row-apart --column-mobile">
                                     <h2>B.S. in Computer Science</h2>
@@ -42,36 +39,10 @@ export default function About()  {
                                     <h3>Old Dominion University</h3>
                                     <p>Norfolk, Virginia</p>
                                 </div>
-                                {/* <div className='row-apart --column-mobile'>
-                                    <a
-                                        href="/portfolio/odu-diploma.pdf"
-                                        target="_blank"
-                                        rel="noopener"
-                                        onClick={(e) => e.stopPropagation()}
-                                        className='about-link'
-                                    >
-                                        View Diploma ↗
-                                    </a>
-                                </div> */}
-                                <div
-                                    className={`expandable-wrapper__job ${
-                                        openSchool === "odu" ? "open" : ""
-                                    }`}
-                                >
-                                    <div className='expandable-content__job'>
-                                        <h3 style={{color: "#9ca3af"}}>GPA</h3>
-                                        <p>3.11</p>
-                                        <p>3.73 (in-major)</p>
-                                    </div>
-                                </div>
-                                <h2 className='arrow-center'>{openSchool === "odu" ? "⌃" : "⌄"}</h2>
                             </div>
                              <div
                                 id="school--wbhs"
                                 className="ed-item"
-                                onClick={() =>
-                                    setOpenSchool(openSchool === "wbhs" ? null : "wbhs")
-                                }
                             >
                                 <div className="row-apart --column-mobile">
                                     <h2>Advanced Diploma</h2>
@@ -81,17 +52,6 @@ export default function About()  {
                                     <h3>Western Branch High School</h3>
                                     <p>Chesapeake, Virginia</p>
                                 </div>
-                                <div
-                                    className={`expandable-wrapper__job ${
-                                        openSchool === "wbhs" ? "open" : ""
-                                    }`}
-                                >
-                                    <div className='expandable-content__job'>
-                                        <h3 style={{color: "#9ca3af"}}>GPA</h3>
-                                        <p>4.67</p>
-                                    </div>
-                                </div>
-                                <h2 className='arrow-center'>{openSchool === "wbhs" ? "⌃" : "⌄"}</h2>
                             </div>
                         </div>
             

@@ -4,8 +4,7 @@
   top: 0;
   text-align: left;
 
-  max-height: 80vh;
-  height: 100%;
+  height: clamp(20rem, 60svh, 40rem);
 
   overflow-y: auto;
 

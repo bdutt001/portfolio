@@ -59,16 +59,14 @@
 }
 
 .timeline-item,
-.skill-item,
-.ed-item {
+.skill-item {
   cursor: pointer;
   transition: border-color 0.5s ease-out;
 }
 
 @media (hover: hover) {
   .timeline-item:hover,
-  .skill-item:hover,
-  .ed-item:hover {
+  .skill-item:hover {
     border-color: white;
     box-shadow: .05rem .05rem .75rem var(--glow);
   }
