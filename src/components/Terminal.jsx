@@ -300,7 +300,6 @@ function Terminal() {
 
         const base = input.slice(0, input.length - partial.length)
 
-        // One match: complete it fully
         if (matches.length === 1) {
             const suffix = kind === "directory" ? "/" : " "
             setInput(base + matches[0].name + suffix)
@@ -308,7 +307,6 @@ function Terminal() {
             return
         }
 
-        // Several matches: fill in what they share
         const prefix = longestCommonPrefix(matches.map(m => m.name))
         if (prefix.length > partial.length) {
             setInput(base + prefix)
@@ -316,7 +314,6 @@ function Terminal() {
             return
         }
 
-        // Nothing more to fill: second Tab in a row lists the matches
         if (lastTabRef.current === input) {
             setCommandHistory(prev => [
                 ...prev,
@@ -560,7 +557,7 @@ function Terminal() {
                         }}
                         onKeyDown={(e) => {
                             if (e.key === "Tab") {
-                                e.preventDefault()   // keeps focus in the terminal
+                                e.preventDefault()
                                 handleTab()
                                 return
                             }

@@ -318,7 +318,8 @@ p {
     height: fit-content;
   }
 
-  .timeline {
+  .timeline,
+  .skills {
     display: flex;
     flex-direction: column;
     justify-content: left;

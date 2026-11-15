@@ -134,6 +134,7 @@
   }
 }
 
+/* Tablets / small laptops: two columns, page still scrolls */
 @media (min-width: 900px) {
   .about-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -143,6 +144,7 @@
 
 @media (min-width: 1400px) {
   .about {
+    height: calc(100svh - var(--header-h, 4rem));
     padding-bottom: 2rem;
   }
 
@@ -150,6 +152,7 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     flex: 1;
     min-height: 0;
+    align-items: stretch;
   }
 
   .about-col {
@@ -160,5 +163,6 @@
   .timeline,
   .skills {
     flex: 1;
+    overscroll-behavior: contain;
   }
 }
